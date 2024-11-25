@@ -29,6 +29,8 @@ def extract_data(file_path, last_processed):
         if last_processed:
             df['OrderDate'] = pd.to_datetime(df['OrderDate'], errors  ='coerce')
             df = df[df['OrderDate'] > pd.to_datetime(last_processed)]
+        # Filter out rows with invalid 'OrderDate' after coercion
+        df = df.dropna(subset=['OrderDate'])
         logging.info(f"Data extracted. {len(df)} records loaded.")
         return df
     except FileNotFoundError:
