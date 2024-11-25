@@ -1,0 +1,53 @@
+import os
+
+# Function to read a file and handle different file formats (text, binary, etc.)
+def read_file(file_path, mode='r'):
+    try:
+        with open(file_path, mode) as file:
+            content = file.read()
+        return content
+    except FileNotFoundError:
+        print(f"Error: The file '{file_path}' does not exist.")
+    except IOError as e:
+        print(f"Error reading the file '{file_path}': {e}")
+    return None
+
+# Function to write content to a file
+def write_to_file(file_path, content, mode='w'):
+    try:
+        with open(file_path, mode) as file:
+            file.write(content)
+        print(f"Content successfully written to '{file_path}' in '{mode}' mode.")
+    except IOError as e:
+        print(f"Error writing to the file '{file_path}': {e}")
+
+# Function to process the content (modify this function to suit your needs)
+def process_content(content, transformation='uppercase'):
+    if transformation == 'uppercase':
+        return content.upper()
+    elif transformation == 'lowercase':
+        return content.lower()
+    elif transformation == 'capitalize':
+        return content.capitalize()
+    else:
+        return content
+
+# Function to automate file processing (read, process, write)
+def process_files(input_file, output_file, transformation='uppercase', append=False):
+    content = read_file(input_file)
+    if content is not None:
+        processed_content = process_content(content, transformation)
+        
+        # Write processed content to the output file
+        mode = 'a' if append else 'w'  # Append mode if specified, otherwise overwrite
+        write_to_file(output_file, processed_content, mode)
+
+# Example usage
+input_file = 'input.txt'  # Modify the input file path
+output_file = 'output.txt'  # Modify the output file path
+
+# Call the process_files function
+process_files(input_file, output_file, transformation='uppercase', append=False)
+
+# Example with appending to the file
+process_files(input_file, output_file, transformation='lowercase', append=True)
