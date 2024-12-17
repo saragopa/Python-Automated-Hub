@@ -17,6 +17,11 @@ def write_to_file(file_path, content, mode='w'):
     try:
         with open(file_path, mode) as file:
             file.write(content)
+            # Move to the 10th byte in the file
+            file.seek(10)
+            # Check the current position of the pointer
+            position = file.tell()  # Output: 10
+            print(f"Current position: {position}")
         print(f"Content successfully written to '{file_path}' in '{mode}' mode.")
     except IOError as e:
         print(f"Error writing to the file '{file_path}': {e}")
