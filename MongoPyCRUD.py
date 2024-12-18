@@ -1,3 +1,4 @@
+```
 from pymongo import MongoClient, errors
 
 class MongoDBHandler:
@@ -98,3 +99,4 @@ if __name__ == "__main__":
 
     # Read documents after deletion
     mongo_handler.read_documents()
+    ```
